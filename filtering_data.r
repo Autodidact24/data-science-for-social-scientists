@@ -1,7 +1,8 @@
 library(dplyr)
+library(readr)
 
 
-df <- read.csv("~/Desktop/Indicators.csv")
+df <- read_csv("~/Desktop/Indicators.csv")
 head(df)
 
 indicator <- "Compulsory education, duration (years)"
