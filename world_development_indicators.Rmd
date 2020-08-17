@@ -1,0 +1,21 @@
+---
+title: "Analysing World Development Indicators"
+output: github_document
+chunk_output_type: console
+---
+
+Each year, the World Bank compiles a collection of development indicators. This data contains thousands of annual indicators like access to electricity, primary and secondary education, etc.
+
+In this project, we will analyze how much do different countries spend on education as a %age of their GDP.
+
+This project is divided into the following tasks:
+1. Download the dataset. Read the dataset into R
+3. Get the feature we are interested in (education as a %age of their GDP)
+4. Plotting that data for the year 2019.
+```{r}
+
+library(ggplot2)
+```
+
+
+
