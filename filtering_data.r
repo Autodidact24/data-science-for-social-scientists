@@ -1,37 +1,24 @@
-library(dplyr)
 library(readr)
-library(ggplot2)
-library(maps)
+library(dplyr)
+library(plotly)
 
 df <- read_csv("~/Desktop/Indicators.csv")
 head(df)
 
-indicator <- ""
-year <- 
+indicator <- "Enrolment in primary education, both sexes (number)"
+year <- 2011
 
-co2_emissions <- filter(df, IndicatorName == indicator, Year == year)
+enrolment <- filter(df, IndicatorName == indicator, Year == year)
 
-# making a base map
+data = select(enrolment, CountryName, CountryCode, Value)
 
-world_map <- map_data("world")
-# p <- ggplot() +
-#   geom_polygon(data=world_map, aes(x=long, y=lat, group=group),
-#                 color="white", fill="red" )
-# 
-# print(p)
-map.world <- merge(x=world_map,
-                   y=select(co2_emissions, CountryName, Value),
-                   by.x="region",
-                   by.y="CountryName",
-                   all.x=TRUE)
+specific_countries <- filter(data, CountryName %in% c('India', 'China', 'Germany'))
+barchart <- plot_ly(specific_countries, type='bar',
+                    x = specific_countries$CountryName,
+                    y = specific_countries$Value
+                    )
+barchart
 
-
-
-p <- ggplot(map.world) +
-  geom_map(map=map.world, aes(map_id=region, x=long, y=lat, fill=Value)) +
-  scale_fill_gradient(low = "green", high = "red", guide = "colourbar") +
-  coord_equal() +
-  ggtitle(paste0(indicator, " in ", year))
-ggsave("map.png", p, width=7, height=4, units="in")
-
-print(p)
+ fig <- plot_ly(data, type='choropleth', locations=data$CountryCode, z=data$Value, 
+                text=data$CountryName, colorscale="blues")
+ fig
