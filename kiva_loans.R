@@ -2,9 +2,9 @@ library(readr)
 library(plotly)
 library(dplyr)
 library(leaflet)
-library(jsonlite)
+#library(jsonlite)
 
-world_loans <- read_tsv('~/Downloads/datasets_14714_19678_kiva_locations.csv')
+world_loans <- read_tsv('~/Downloads/kiva_locations.csv')
 
 
 g <- list(
@@ -35,20 +35,6 @@ fig <- fig %>% layout(
 
 ## Getting Kiva loans in Philippines
 philippines_loans = filter(world_loans, country == 'Philippines')
-
-
-# g <- list(
-#   scope = 'asia',
-# 
-#   lakecolor = toRGB('white')
-# )
-# 
-# plot_geo() %>%
-#   add_trace(
-#     text = philippines_loans$region , span = I(0),
-#     y = philippines_loans$lat, x = philippines_loans$lng, locationmode = 'PHL'
-#   ) %>%
-#   layout(geo = data)
 
 geojson <- readLines("~/Desktop/philippines.geojson", warn = FALSE) %>%
   paste(collapse = "\n") %>%
